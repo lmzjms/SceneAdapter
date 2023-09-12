@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="SCENEADAPTER: DIVE YOUR VOICE INTO MULTIPLE REAL LIFE SCENE
-        WITH A NEW MULTI SCENE DATASET">
+        content="SceneAdapter: Dive Your Voice Into Multiple Real Life Scene With A New Multi Scene Dataset">
   <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SCENEADAPTER</title>
+  <title>SceneAdapter</title>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7749G0HJZ"></script>
@@ -42,8 +41,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">SCENEADAPTER: DIVE YOUR VOICE INTO MULTIPLE REAL LIFE SCENE
-            WITH A NEW MULTI SCENE DATASET</h1>
+          <h1 class="title is-1 publication-title">SceneAdapter: Dive Your Voice Into Multiple Real Life Scene With A New Multi Scene Dataset</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">Qian Yang<sup>1,*</sup>,</span>
             <span class="author-block">Jialong Zuo<sup>1,*</sup>,</span>
@@ -51,6 +49,7 @@
             <span class="author-block">Ziyue Jiang<sup>1</sup>,</span>
             <span class="author-block">Mingze Li<sup>1</sup>,</span>
             <span class="author-block">Zhou Zhao<sup>1</sup>,</span>
+            <br />
             <span class="author-block">Feiyang Chen<sup>2</sup>,</span>
             <span class="author-block">Zhefeng Wang<sup>2</sup>,</span>
             <span class="author-block">Baoxing Huai<sup>2</sup>,</span>
@@ -59,7 +58,7 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Zhejiang University,</span>
             <span class="author-block"><sup>2</sup>Huawei Cloud,</span>
-            <span class="author-block"><sup>2</sup>Carnegie Mellon University</span>
+            <span class="author-block"><sup>3</sup>Carnegie Mellon University</span>
           </div>
           <div class="is-size-8 publication-authors">
             <span class="author-block"><sup>*</sup>Equal Contribution</span>
@@ -70,7 +69,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2307.07218"
+                <a href="#"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -97,25 +96,21 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Zero-shot text-to-speech aims at synthesizing voices with unseen speech prompts. 
-            Previous large-scale multispeaker TTS models, have successfully achieved this goal with an enrolled recording within 10 seconds. 
-            However, most of them are designed to utilize only short speech prompts. 
-            The limited information in short speech prompts significantly hinders the performance of fine-grained identity imitation. 
-          </p>
-          <p>
-            In this paper, we introduce Mega-TTS 2, a generic zero-shot multispeaker TTS model that is capable of 
-            synthesizing speech for unseen speakers with arbitrary-length prompts. 
-            Specifically, we 1) design a multi-reference timbre encoder to extract timbre information from multiple reference speeches;
-            2) and train a prosody language model (PLM) with arbitrary-length speech prompts;
-            With these designs, our model is suitable for prompts of different lengths, which extends the upper bound of speech quality for zero-shot text-to-speech.
-            Besides arbitrary-length prompts, we introduce arbitrary-source prompts, which leverages the probabilities
-            derived from multiple PLM outputs to produce expressive and controlled prosody.
-            Furthermore, we propose a phoneme-level auto-regressive duration model to introduce in-context learning capabilities to duration modeling.
-          </p>
-          <p>
-            Experiments demonstrate that our method could not only synthesize identity-preserving speech with a short prompt
-            of an unseen speaker but also achieve improved performance with longer speech prompts.
-            Audio samples can be found in our demo page.
+            Current adaptive text-to-speech (TTS) can synthesize highquality voice for any user. However, transferring this tailored
+            voice to different real-life scenarios with various prosody is still a great challenge. To address this, we propose SceneAdapter,
+            an adaptive TTS framework that leverages reference prosody speech and prompting mechanism to model
+            scene-specific prosody and generate multiple prosody diverse
+            speech. Along with the model, we have curated a multiscene
+            dataset (MSVoice) featuring prosody-rich recordings
+            in multiple real-life scenarios. We first pre-train our model
+            in a 400 hours large mixed bilingual dataset with Chinese
+            and English, employing a masked prediction mechanism
+            to model basic timbre and prosody representations. After
+            that, we fine-tune our model on the proposed multi-scene
+            dataset to transfer scene-relevant prosody. Experimental results
+            indicate our model can effectively synthesize speech
+            characterized by both user-specific timbre and scene-specific
+            prosody with arbitrary text input. Audio samples can be found in this demo page.
           </p>
         </div>
 
@@ -126,240 +121,187 @@
   </div>
 </section>
 
+<section class="hero teaser">
+  <div class="container is-max-desktop is-centered has-text-centered">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Model Overview</h2>
+          <img src="./static/images/[ICASSP-2024] framwork.png"
+                    class="interpolation-image"
+                    alt="Interpolate start reference image."/>
+          <h2 class="has-text-centered is-8">
+            The overall architecture of SceneAdapter. Duration, pitch, and energy are extracted from the prompt (In training: unmasked part; In inference: reference speech). It serves as conditions for their respective predictors. And losses are calculated only on masked part.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Module 1</h2>
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Name</strong></th>
+                  <th align="center"><strong>Scene Name</strong></th>
+                  <th align="center"><strong>Non Parallel</strong></th>
+                  <th align="center"><strong>ref-prosody</strong></th>
+                  <th align="center"><strong>ref-spk</strong></th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">教育授课</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/教育授课/gen_txt_12_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/教育授课/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">客服问答</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/客服问答/gen_txt_客服问答-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/客服问答/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">新闻播报</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/新闻播报/gen_txt_57_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS018/新闻播报/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">教育授课</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/教育授课/gen_txt_12_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/教育授课/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">客服问答</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/客服问答/gen_txt_客服问答-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/客服问答/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">man_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">新闻播报</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/新闻播报/gen_txt_57_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/man_ZS021/新闻播报/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">儿童故事</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/儿童故事/gen_txt_0_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/儿童故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/儿童故事/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">教育授课</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/教育授课/gen_txt_18_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/教育授课/gen_txt_47_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/教育授课/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">客服问答</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/客服问答/gen_txt_71_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/客服问答/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS015</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">新闻播报</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/gen_txt_6_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/gen_txt_13_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/gen_txt_54_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/gen_txt_57_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS015/新闻播报/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">成人故事</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/成人故事/gen_txt_0_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/成人故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/成人故事/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">教育授课</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/教育授课/gen_txt_6_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/教育授课/gen_txt_12_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/教育授课/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">woman_ZS026</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">新闻播报</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/新闻播报/gen_txt_54_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo_page/woman_ZS026/新闻播报/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
-<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-    <h3>man_ZS018</h3>
-		<div class="table-responsive pt-3">
-			<table class="table table-hover pt-2">
-			<thead>
-			<tr>
-			<th style="text-align: center">parallel</th>
-			<th style="text-align: center">non_parallel_1</th>
-            <th style="text-align: center">non_parallel_2</th>
-			<th style="text-align: center">ref-prosody</th>
-            <th style="text-align: center">ref-spk</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\1\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\1\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\1\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\1\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\1\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			</tr>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\2\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\2\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\2\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\2\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\2\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\3\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\3\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\3\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\3\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\3\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\4\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\4\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\4\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\4\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\4\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\5\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\5\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\5\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\5\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\5\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\6\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\6\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\6\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\6\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS018\6\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tbody>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">shuffle speaker basis vectors in sec3.1</h2>
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Example</strong></th>
+                  <th align="center"><strong>Audio</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_1</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_2</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_3</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_4</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out4.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_5</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_6</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out6.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+              </tbody>
             </table>
+          </div>
         </div>
-</div>
-<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-    <h3>man_ZS020</h3>
-		<div class="table-responsive pt-3">
-			<table class="table table-hover pt-2">
-			<thead>
-			<tr>
-			<th style="text-align: center">parallel</th>
-			<th style="text-align: center">non_parallel_1</th>
-            <th style="text-align: center">non_parallel_2</th>
-			<th style="text-align: center">ref-prosody</th>
-            <th style="text-align: center">ref-spk</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\1\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\1\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\1\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\1\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\1\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			</tr>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\2\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\2\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\2\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\2\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\2\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\3\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\3\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\3\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\3\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\3\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\4\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\4\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\4\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\4\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\4\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\5\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\5\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\5\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\5\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\5\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\6\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\6\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\6\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\6\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\man_ZS020\6\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-</div>
-<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-    <h3>woman_ZS008</h3>
-		<div class="table-responsive pt-3">
-			<table class="table table-hover pt-2">
-			<thead>
-			<tr>
-			<th style="text-align: center">parallel</th>
-			<th style="text-align: center">non_parallel_1</th>
-            <th style="text-align: center">non_parallel_2</th>
-			<th style="text-align: center">ref-prosody</th>
-            <th style="text-align: center">ref-spk</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\1\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\1\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\1\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\1\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\1\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			</tr>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\2\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\2\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\2\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\2\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\2\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\3\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\3\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\3\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\3\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\3\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\4\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\4\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\4\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\4\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\4\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\5\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\5\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\5\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\5\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\5\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\6\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\6\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\6\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\6\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS008\6\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-</div>
-<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-    <h3>woman_ZS016</h3>
-		<div class="table-responsive pt-3">
-			<table class="table table-hover pt-2">
-			<thead>
-			<tr>
-			<th style="text-align: center">parallel</th>
-			<th style="text-align: center">non_parallel_1</th>
-            <th style="text-align: center">non_parallel_2</th>
-			<th style="text-align: center">ref-prosody</th>
-            <th style="text-align: center">ref-spk</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\1\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\1\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\1\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			<td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\1\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\1\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-			</tr>
-			<tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\2\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\2\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\2\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\2\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\2\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\3\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\3\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\3\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\3\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\3\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\4\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\4\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\4\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\4\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\4\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\5\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\5\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\5\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\5\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\5\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tr>
-            <tr><td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\6\gen_txt_-2_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\6\gen_txt_-2_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\6\gen_txt_-3_non_parallel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\6\ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="SceneTTS_split_new\woman_ZS016\6\ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-</div>
+      </div>
+    </section>
 
 
 </body>
