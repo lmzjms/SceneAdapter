@@ -151,51 +151,131 @@
                 <h4>General Information:</h4>
                 <div class="content has-text-justified">
                   <p>
-                    MS-Voice is a novel high-quality Mandarin speech dataset that encompasses a diverse range of daily scenarios. Containing rich prosody, it serves as an important resource for synthesizing expressive audio under various scenarios.
+                    We introduce MS-Voice, a high-quality, monolingual Mandarin speech dataset, and is designed to capture the nuances of expressive speech across multiple scenarios. It includes four distinct scenes—Chat, News, QA, and Storytelling—with approximately 15 hours of audio.
+                    This dataset aims to provide a comprehensive resource for training TTS models to generate speech with varying prosody, reflecting the variations encountered in day-to-day communication. 
                   </p>
+                  <p>
+                    MSVoice是一个高质量的单语种普通话语音数据集。数据集旨在训练模型捕捉多场景中富有表现力的语音细微差别，包含了四种不同的场景—聊天、新闻、问答和故事。数据集时长约为15小时。
+                    该数据集旨在提供一个全面的音频数据，用于训练TTS模型以生成具有变化韵律的语音，以适应现实生活中多场景的需求。
+                  </p>
+                </div>
+                <br>
+                <div class="content has-text-justified">
+                  <p>
+                    The dataset has four main categories, with a detailed description as follows:
+                  </p>
+                  <ul>
+                    <li> Chat: Casual Conversations Informal dialogues, interactive discussions, and crosstalk. </li>
+                    <li> QA: Question-and-answer interactions from online shopping platforms, and queries pertaining to website construction. </li>
+                    <li> News: News segments from national television broadcasts in China.</li>
+                    <li> Story: Story for children and adults, encompassing diverse storytelling styles and themes. </li>
+                  </ul>
+                <br>
                 </div>
               </p>
             </div>
-            <img src="./static/images/0bceae62cd952772251cbbcb4c5a017.png"
+            
+            <div class="has-text-left">
+              <p>
+                <h4>Dataset Stats:</h4>
+                  <div class="content has-text-justified">
+                    <p>
+                      The detailed dataset stats are as follows.
+                    </p>
+                  
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scene</th>
+                                <th>Number of speakers</th>
+                                <th>Total time (hr)</th>
+                                <th>Number of clips</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chat</td>
+                                <td>4</td>
+                                <td>8.90</td>
+                                <td>3349</td>
+                            </tr>
+                            <tr>
+                              <td>News</td>
+                              <td>2</td>
+                              <td>2.21</td>
+                              <td>719</td>
+                            </tr>
+                            <tr>
+                              <td>QA</td>
+                              <td>3</td>
+                              <td>2.83</td>
+                              <td>1029</td>
+                            </tr>
+                            <tr>
+                              <td>Story</td>
+                              <td>4</td>
+                              <td>3.86</td>
+                              <td>1373</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+
+
+                  </div>
+                  <br>
+                  <div class="content has-text-justified">
+                    <p>
+                      Here is the audio attributes of different scenes. The scene is highly variant on Speed, Pitch and Energy, which can all serve as a great indicator of a highly variant prosody
+                    </p>
+                  </div>
+                </p>
+              </div>
+
+            <!-- <img src="./static/images/0bceae62cd952772251cbbcb4c5a017.png"
             class="interpolation-image"
-            alt="Interpolate start reference image."/><br />
-            <img src="./static/images/20230916143609.png"
+            alt="Interpolate start reference image."/><br /> -->
+            <img src="./static/images/20230916143609_1.png"
             class="interpolation-image"
             alt="Interpolate start reference image."/>
             <div class="has-text-left">
               <p>
                 <h4>Dataset demo:</h4>
+                <p>
+                  MS-Voice's utility lies not only in its prosodic richness but also in the uniformity of voice timbre across different prosodic contexts. This duality allows for nuanced voice synthesis, enabling TTS models to generate varied speech outputs with disentangled representations for timbre and prosody. In this part, we will show demo audios of different scenes.
+                </p>
                 <table class="table" style="background-color: transparent;">
                 <thead>
                   <tr>
                     <th align="center"><strong>Scene</strong></th>
-                    <th align="center"><strong>Text</strong></th>
-                    <th align="center"><strong>Audio</strong></th>
+                    <th align="center"><strong>Audio_Speaker1</strong></th>
+                    <th align="center"><strong>Audio_Speaker2</strong></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">Chat</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">哦，你要忙就先忙着啊，不打扰你了。没事，写得我都手疼了，聊会吧，我也放松一下。</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo/chat.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px;height: 70px">Chat</td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/chat.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/chat.wav" autoplay/>Your browser does not support the audio element.</audio></td>
                   </tr>
                   <tr>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">News</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">我国数字经济规模连续多年位居全球第二，其中电子商务交易额、移动支付交易规模位居全球第一。</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo/news.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px;height: 70px">News</td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/news.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/news.wav" autoplay/>Your browser does not support the audio element.</audio></td>
                   </tr>
                   <tr>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">QA</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">您好！这款连衣裙是真丝面料的哦，非常顺滑，穿起来感觉非常舒服的哦。</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo/qa.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px;height: 70px">QA</td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/qa.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/qa.wav" autoplay/>Your browser does not support the audio element.</audio></td>
                   </tr>
                   <tr>
                     <td style="text-align: center;vertical-align:middle;width: 800px">Story</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px">买驴人见状二话没说马上又牵着这头驴子回到市场上。</td>
-                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/demo/story.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/story.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/demo/story.wav" autoplay/>Your browser does not support the audio element.</audio></td>
                   </tr>
                 </tbody>
                 </table>
+                <br>
               </p>
             </div>
             <div class="has-text-left">
@@ -206,24 +286,24 @@
                     
                     The dataset is provided as a single set, without any predefined train-test split.<br />
 
-                    The organization of the directory structure is hierarchical, based on the scene, then the speaker. Within the speaker folder, we provides the audio with its corresponding text and pronunciation(pinyin). The following ASCII diagram depicts this structure:
+                    The organization of the directory structure is hierarchical, based on the scene, then the speaker. Within the speaker folder, we provides the audio with its corresponding text and pronunciation (pinyin). The following ASCII diagram depicts this structure:
                     <code markdown class="has-text-left">
-                      <corpus root>
-                      │
-                      ├── readme.txt
-                      │
-                      └── data/
-                          │
-                          └── qa/
-                              │
-                              └── 客服问答一_犀牛有角/                
-                                  │
-                                  ├── 0.wav
-                                  │
-                                  └── 0.txt
-                                  |
-                                  └── 0_pinyin.txt
-                                  ...
+    <corpus root>
+    │
+    ├── readme.txt
+    │
+    └── data/
+        │
+        └── qa/
+            │
+            └── 客服问答一_犀牛有角/                
+                │
+                ├── 0.wav
+                │
+                └── 0.txt
+                |
+                └── 0_pinyin.txt
+                ...
                       </code>
                       <script src="https://cdn.jsdelivr.net/npm/marked@3.0.0/marked.min.js"></script>
                       <script>
@@ -248,7 +328,7 @@
                   <ul>
                     <li> <a href="mailto:qyang1021@zju.edu.cn">qyang1021@zju.edu.cn</a> </li>
                     <li> <a href="mailto:suzhe@zju.edu.cn">suzhe@zju.edu.cn</a> </li>
-                    </ul>
+                  </ul>
                 </div>
               </p>
             </div>
